@@ -22,4 +22,5 @@ await ctx.watch()
 
 let { host, port } = await ctx.serve({
   servedir: 'dist',
+  port: 8001
 })

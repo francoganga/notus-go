@@ -2,11 +2,10 @@ package main
 
 import (
 	"fmt"
+	"html/template"
 	"net/http"
 	"os"
-	"portal/templates"
 
-	"github.com/a-h/templ"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/render"
@@ -33,7 +32,28 @@ func main() {
 			"message": "Hello, World!",
 		})
 	})
-	r.Handle("/*", templ.Handler(templates.Home(appEnv)))
+	templ, err := template.New("base.gohtml").ParseFiles("templates/base.gohtml")
+
+	if err != nil {
+		panic(err)
+	}
+
+	r.Get("/*", func(w http.ResponseWriter, r *http.Request) {
+
+		type TemplGlobals struct {
+			Mode string
+		}
+
+		err := templ.Execute(w, TemplGlobals{
+			Mode: appEnv,
+		})
+
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			w.Write([]byte(err.Error()))
+			return
+		}
+	})
 	http.ListenAndServe(":3000", r)
 }
 

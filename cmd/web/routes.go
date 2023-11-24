@@ -1,25 +1,15 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
-	"os"
 
-	"github.com/flosch/pongo2/v6"
+	"github.com/flosch/pongo2"
+	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/chi/v5"
-	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/render"
 )
 
-func main() {
-
-	appEnv := os.Getenv("APP_ENV")
-
-	if appEnv == "" {
-		appEnv = "dev"
-	}
-
-	fmt.Printf("appEnv=%v\n", appEnv)
+func (a *application) routes() *chi.Mux {
 
 	r := chi.NewRouter()
 	fs := http.FileServer(http.Dir("./public"))
@@ -38,7 +28,7 @@ func main() {
 		templ := pongo2.Must(pongo2.FromFile("templates/base.html"))
 
 		err := templ.ExecuteWriter(pongo2.Context{
-			"mode": appEnv,
+			"mode": "dev",
 		}, w)
 
 		if err != nil {
@@ -47,6 +37,7 @@ func main() {
 			return
 		}
 	})
-	http.ListenAndServe(":3000", r)
+
+	return r
 }
 

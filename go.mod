@@ -8,4 +8,8 @@ require (
 	github.com/go-chi/render v1.0.3
 )
 
-require github.com/ajg/form v1.5.1 // indirect
+require (
+	github.com/ajg/form v1.5.1 // indirect
+	github.com/flosch/pongo2 v0.0.0-20200913210552-0d938eb266f3 // indirect
+	github.com/go-chi/chi v1.5.5 // indirect
+)

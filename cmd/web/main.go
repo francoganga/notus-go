@@ -7,6 +7,8 @@ import (
 	"net/http"
 	"os"
 	"time"
+
+	"github.com/francoganga/notus-go/internal/templates"
 )
 
 const version = "1.0.0"
@@ -23,8 +25,9 @@ type config struct {
 }
 
 type application struct {
-	config config
-	logger *log.Logger
+	config    config
+	logger    *log.Logger
+	templates *templates.Templates
 }
 
 func main() {
@@ -43,9 +46,13 @@ func main() {
 
 	logger := log.New(os.Stdout, "", log.Ldate|log.Ltime)
 
+	temps := templates.LoadTemplates("templates")
+	temps.Dbg()
+
 	app := &application{
-		config: cfg,
-		logger: logger,
+		config:    cfg,
+		logger:    logger,
+		templates: temps,
 	}
 
 	srv := &http.Server{

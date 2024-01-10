@@ -8,7 +8,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/francoganga/notus-go/internal/templates"
+	"github.com/francoganga/pongoe"
 )
 
 const version = "1.0.0"
@@ -27,7 +27,7 @@ type config struct {
 type application struct {
 	config    config
 	logger    *log.Logger
-	templates *templates.Templates
+	templates *pongoe.Templates
 }
 
 func main() {
@@ -46,7 +46,7 @@ func main() {
 
 	logger := log.New(os.Stdout, "", log.Ldate|log.Ltime)
 
-	temps := templates.LoadTemplates("templates")
+	temps := pongoe.LoadTemplates("templates")
 	temps.Dbg()
 
 	app := &application{

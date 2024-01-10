@@ -11,5 +11,6 @@ require (
 require (
 	github.com/ajg/form v1.5.1 // indirect
 	github.com/flosch/pongo2 v0.0.0-20200913210552-0d938eb266f3 // indirect
+	github.com/francoganga/pongoe v0.1.2 // indirect
 	github.com/go-chi/chi v1.5.5 // indirect
 )

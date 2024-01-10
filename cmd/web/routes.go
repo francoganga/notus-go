@@ -14,7 +14,7 @@ func (a *application) routes() *chi.Mux {
 	r.Handle("/static/*", http.StripPrefix("/static/", fs))
 
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		a.templates.Render("views_home", w, nil)
+		a.templates.Render("views/home.html", w, nil)
 	})
 
 	return r
